@@ -9,5 +9,6 @@ title: Notes
         {{ post.author }}
         <h4><a href="{{ post.url }}">{{ post.title }}</a></h4>
     </span>
+    {{ post.excerpt }}
   </div>
 {% endfor %}
