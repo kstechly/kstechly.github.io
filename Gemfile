@@ -43,3 +43,5 @@ gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 gem "webrick", "~> 1.8"
 
 gem "jekyll-spaceship", "~> 0.10.2"
+
+gem "rouge", "~> 3.26"
