@@ -15,8 +15,8 @@
 # in the templates via {{ site.myvariable }}.
 title: Kaya Stechly 
 email: kayastechly@gmail.com
+uni_email: kfallens@asu.edu
 description: >- # this means to ignore newlines until "baseurl:"
-    Kaya Stechly's portfolio, notes, and digital CV.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://kstechly.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  kstechly
@@ -27,6 +27,11 @@ highlighter: rouge
 theme: minima
 plugins:
   - jekyll-feed
+
+collections:
+  notes:
+    output: true
+
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
