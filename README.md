@@ -1,1 +1,1 @@
-Kaya Stechly's Notes
+Kaya Stechly's Personal Site
