@@ -5,5 +5,4 @@ inline: true
 related_posts: false
 ---
 
-New preprint analyzing how chain of thought approaches break down out-of-distribution: [Chain of Thoughtlessness? An Analysis of CoT in Planning
-](https://arxiv.org/abs/2405.04776).
+New preprint analyzing how chain of thought approaches break down out-of-distribution: [Chain of Thoughtlessness? An Analysis of CoT in Planning](https://arxiv.org/abs/2405.04776).
