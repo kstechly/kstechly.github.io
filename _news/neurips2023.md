@@ -1,6 +1,5 @@
 ---
 layout: post
-title: NeurIPS 2023
 date: 2023-12-10 00:00:00-0500
 inline: false
 related_posts: false
