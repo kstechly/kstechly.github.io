@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://kstechly.github.io/al-folio/sitemap.xml
+Sitemap: https://kstechly.github.io//sitemap.xml
