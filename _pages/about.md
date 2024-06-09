@@ -2,24 +2,22 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I am a Linguistics M.A. student at Arizona State University interested in theoretical linguistics, computational cognitive science, and reasoning in both brains and machines. I will be applying to PhD programs, targeting a Fall 2025 start. 
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+On the AI side, I currently work at the [Yochan lab](https://yochan-lab.github.io/home/) under [Subbarao Kambhampati](https://rakaposhi.eas.asu.edu/). My research is guided and inspired by the dual goals of teaching concepts to and distilling symbols from neural networks in human-interpretable form. Much of my work has focused on the much-hyped in-context learning abilities of large language models, especially as applied to classical reasoning and planning tasks.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+In linguistics, I am studying models of phonological acquisition and evolution in the context of optimality theory and its extensions. My thesis advisor is [Kathryn Pruitt](https://sites.google.com/view/kathryn-pruitt/).
+
+In my free time, I enjoy bouldering, swimming, reading and writing fiction, participating in well-rendered cooperative multiagent simulations, and baking.
+
