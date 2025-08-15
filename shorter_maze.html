@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    font-family: monospace;
+    background: #1a1a1a;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.sidebar {
+    width: 250px;
+    padding: 20px;
+    background: #2a2a2a;
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+}
+.main-content {
+    margin-left: 290px;
+    padding: 20px;
+    flex: 1;
+}
+table {
+    border-collapse: collapse;
+}
+td {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    font-size: 10px;
+    border: 1px solid #333;
+}
+.wall {
+    background: #000;
+}
+.both {
+    background: #2a4a2a;
+    color: #8f8;
+}
+.created_only {
+    background: #4a2a2a;
+    color: #faa;
+}
+.closed_only {
+    background: #2a2a4a;
+    color: #88f;
+}
+.start {
+    background: #4a4;
+    color: #000;
+    font-weight: bold;
+}
+.goal {
+    background: #a44;
+    color: #fff;
+    font-weight: bold;
+}
+h1 {
+    margin-top: 0;
+}
+.stat-section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #444;
+}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<h1>A* Trace Info</h1>
+<div class="stat-section">
+<h3>Legend</h3>
+<p>S = Start<br>G = Goal<br>Numbers = Visit Step</p>
+</div>
+<div class="stat-section">
+<h3>Cell Counts</h3>
+<p>🔵 Created & Closed: 27</p>
+<p>🟠 Created Only: 15</p>
+<p>🟢 Closed Only: 1</p>
+<p>⬛ Walls: 857</p>
+</div>
+<div class="stat-section">
+<h3>Positions</h3>
+<p><strong>Start:</strong> (26, 26)</p>
+<p><strong>Goal:</strong> (25, 0)</p>
+</div>
+<div class="stat-section">
+<h3>Statistics</h3>
+<p>Total visited: 43</p>
+<p>Total closed: 28</p>
+<p>Total created: 42</p>
+</div>
+<div class="stat-section">
+<h3>Animation</h3>
+<button id="animateBtn" onclick="toggleAnimation()" style="padding: 10px 20px; background: #444; color: #fff; border: none; border-radius: 5px; cursor: pointer; width: 100%;">Start Animation</button>
+<br><br>
+<label for="speedSlider" style="display: block; margin-top: 10px;">Speed: <span id="speedValue">12</span> cells/sec</label>
+<input type="range" id="speedSlider" min="1" max="30" value="12" style="width: 100%;" onchange="updateSpeed(this.value)">
+</div>
+</div>
+<div class="main-content">
+<h2>Maze Visualization</h2>
+<table id="mazeTable">
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="69" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 1.00); color: rgba(255, 255, 255, 1.00); font-weight: bold;">G</td><td data-step="66" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.98); color: rgba(255, 255, 255, 0.98); font-weight: bold;">66</td><td data-step="68" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.99); color: rgba(255, 255, 255, 0.99); font-weight: normal;">68</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="63" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.96); color: rgba(255, 255, 255, 0.96); font-weight: bold;">63</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="61" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.94); color: rgba(255, 255, 255, 0.94); font-weight: bold;">61</td><td data-step="64" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.96); color: rgba(255, 255, 255, 0.96); font-weight: normal;">64</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="58" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.92); color: rgba(255, 255, 255, 0.92); font-weight: bold;">58</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="56" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.90); color: rgba(255, 255, 255, 0.90); font-weight: bold;">56</td><td data-step="59" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.93); color: rgba(255, 255, 255, 0.93); font-weight: normal;">59</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="53" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.88); color: rgba(255, 255, 255, 0.88); font-weight: bold;">53</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="51" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.87); color: rgba(255, 255, 255, 0.87); font-weight: bold;">51</td><td data-step="54" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.89); color: rgba(255, 255, 255, 0.89); font-weight: normal;">54</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="48" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.85); color: rgba(255, 255, 255, 0.85); font-weight: bold;">48</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="46" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.83); color: rgba(255, 255, 255, 0.83); font-weight: bold;">46</td><td data-step="49" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.85); color: rgba(255, 255, 255, 0.85); font-weight: normal;">49</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="43" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.81); color: rgba(255, 255, 255, 0.81); font-weight: bold;">43</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="41" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.79); color: rgba(255, 255, 255, 0.79); font-weight: bold;">41</td><td data-step="44" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.82); color: rgba(255, 255, 255, 0.82); font-weight: normal;">44</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="38" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.77); color: rgba(255, 255, 255, 0.77); font-weight: bold;">38</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="36" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.76); color: rgba(255, 255, 255, 0.76); font-weight: bold;">36</td><td data-step="39" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.78); color: rgba(255, 255, 255, 0.78); font-weight: normal;">39</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="33" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.74); color: rgba(255, 255, 255, 0.74); font-weight: bold;">33</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="31" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.72); color: rgba(255, 255, 255, 0.72); font-weight: bold;">31</td><td data-step="34" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.74); color: rgba(255, 255, 255, 0.74); font-weight: normal;">34</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="28" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.70); color: rgba(255, 255, 255, 0.70); font-weight: bold;">28</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="26" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.68); color: rgba(255, 255, 255, 0.68); font-weight: bold;">26</td><td data-step="29" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.71); color: rgba(255, 255, 255, 0.71); font-weight: normal;">29</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="23" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.66); color: rgba(255, 255, 255, 0.66); font-weight: bold;">23</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="21" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.65); color: rgba(255, 255, 255, 0.65); font-weight: bold;">21</td><td data-step="24" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.67); color: rgba(255, 255, 255, 0.67); font-weight: normal;">24</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="18" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.62); color: rgba(255, 255, 255, 0.62); font-weight: bold;">18</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="16" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.61); color: rgba(255, 255, 255, 0.61); font-weight: bold;">16</td><td data-step="19" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.63); color: rgba(255, 255, 255, 0.63); font-weight: normal;">19</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="13" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.59); color: rgba(255, 255, 255, 0.59); font-weight: bold;">13</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="11" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.57); color: rgba(255, 255, 255, 0.57); font-weight: bold;">11</td><td data-step="14" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.60); color: rgba(255, 255, 255, 0.60); font-weight: normal;">14</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="8" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.55); color: rgba(255, 255, 255, 0.55); font-weight: bold;">8</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="6" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.54); color: rgba(255, 255, 255, 0.54); font-weight: bold;">6</td><td data-step="9" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.56); color: rgba(255, 255, 255, 0.56); font-weight: normal;">9</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="2" data-color="0, 114, 178" data-type="both" style="background: rgba(0, 114, 178, 0.51); color: rgba(255, 255, 255, 0.51); font-weight: bold;">2</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="1" data-color="0, 158, 115" data-type="closed_only" style="background: rgba(0, 158, 115, 0.50); color: rgba(255, 255, 255, 0.50); font-weight: bold;">S</td><td data-step="3" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.51); color: rgba(255, 255, 255, 0.51); font-weight: normal;">3</td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td data-step="4" data-color="230, 159, 0" data-type="created_only" style="background: rgba(230, 159, 0, 0.52); color: rgba(255, 255, 255, 0.52); font-weight: normal;">4</td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+<tr><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td><td class="wall"></td></tr>
+</table>
+</div>
+<script>
+let animationInterval = null;
+let currentStep = 0;
+let maxStep = 69;
+let speed = 12; // cells per second
+
+function toggleAnimation() {
+    const btn = document.getElementById('animateBtn');
+    if (animationInterval) {
+        // Stop animation
+        clearInterval(animationInterval);
+        animationInterval = null;
+        btn.textContent = 'Resume Animation';
+    } else {
+        // Start/resume animation
+        if (currentStep >= maxStep) {
+            resetAnimation();
+        }
+        btn.textContent = 'Pause Animation';
+        animationInterval = setInterval(animateStep, 1000 / speed);
+    }
+}
+
+function resetAnimation() {
+    currentStep = 0;
+    const cells = document.querySelectorAll('td[data-step]');
+    cells.forEach(cell => {
+        cell.style.background = '#000';
+        cell.style.color = 'transparent';
+    });
+}
+
+function animateStep() {
+    currentStep++;
+    if (currentStep > maxStep) {
+        clearInterval(animationInterval);
+        animationInterval = null;
+        document.getElementById('animateBtn').textContent = 'Restart Animation';
+        return;
+    }
+    
+    const cells = document.querySelectorAll(`td[data-step="${currentStep}"]`);
+    cells.forEach(cell => {
+        const color = cell.getAttribute('data-color');
+        const step = parseInt(cell.getAttribute('data-step'));
+        const opacity = 0.5 + (0.5 * (step - 1) / (maxStep - 1));
+        cell.style.background = `rgba(${color}, ${opacity})`;
+        cell.style.color = `rgba(255, 255, 255, ${opacity})`;
+    });
+}
+
+function updateSpeed(newSpeed) {
+    speed = parseInt(newSpeed);
+    document.getElementById('speedValue').textContent = speed;
+    if (animationInterval) {
+        clearInterval(animationInterval);
+        animationInterval = setInterval(animateStep, 1000 / speed);
+    }
+}
+
+// Initially hide all cells
+window.onload = function() {
+    resetAnimation();
+}
+</script>
+</body>
+</html>
